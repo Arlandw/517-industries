@@ -16,6 +16,8 @@
       --line: #333333;
       --cream: #e6e1d8;
       --muted: #9a958c;
+      --steel: #8e8a82;
+      --steel-dim: #6e6a64;
       --radius-sm: 4px;
       --radius-md: 6px;
       --ease-sig: cubic-bezier(0.22, 1, 0.36, 1);
@@ -74,10 +76,28 @@
       backdrop-filter: blur(8px);
       animation: rule-in 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
+    .brand {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
     header img {
       display: block;
       height: 18px;
       width: auto;
+    }
+    .brand-rule {
+      display: block;
+      width: 82px;
+      height: 9px;
+      color: var(--steel);
+      opacity: 0.7;
+    }
+    .brand-rule svg {
+      display: block;
+      width: 100%;
+      height: 100%;
     }
     nav {
       display: flex;
@@ -127,6 +147,46 @@
       pointer-events: none;
       opacity: 0;
       animation: grid-in 1.1s 180ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .hero-grain {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.09;
+      mix-blend-mode: overlay;
+      filter: grayscale(1) contrast(1.15);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 220px 220px;
+      animation: grain-drift 1.4s steps(5) infinite;
+    }
+    .hero-frame {
+      position: absolute;
+      inset: 28px var(--pad) 40px;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .hero-bracket {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      color: var(--steel);
+      opacity: 0.7;
+    }
+    .hero-bracket svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .hero-bracket.nw {
+      top: 0;
+      left: 0;
+      transform: rotate(180deg);
+    }
+    .hero-bracket.ne {
+      top: 0;
+      right: 0;
+      transform: scaleY(-1);
     }
     .hero-copy { position: relative; min-width: 0; }
     .hero h1 {
@@ -396,8 +456,22 @@
     .means.reveal.in span:nth-child(6) { transition-delay: 200ms; }
 
     .statement {
+      position: relative;
       padding: clamp(72px, 12vh, 140px) var(--pad);
       border-top: 1px solid var(--line);
+    }
+    .panel-tick {
+      display: block;
+      width: 12px;
+      height: 12px;
+      margin: 0 0 18px;
+      color: var(--steel);
+      opacity: 0.7;
+    }
+    .panel-tick svg {
+      display: block;
+      width: 100%;
+      height: 100%;
     }
     .statement p {
       margin: 0;
@@ -542,6 +616,24 @@
       color: var(--muted);
       font-size: 15px;
     }
+    .mail-row {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .colophon-mark {
+      display: block;
+      width: 72px;
+      height: 13px;
+      color: var(--steel);
+      opacity: 0.7;
+    }
+    .colophon-mark svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
     .close a.mail {
       position: relative;
       font-size: clamp(18px, 2.4vw, 28px);
@@ -598,6 +690,14 @@
     @keyframes rule-in {
       to { border-bottom-color: var(--line); }
     }
+    @keyframes grain-drift {
+      0% { background-position: 0 0; }
+      20% { background-position: -8px 4px; }
+      40% { background-position: 6px -10px; }
+      60% { background-position: -4px 8px; }
+      80% { background-position: 10px -3px; }
+      100% { background-position: 0 0; }
+    }
 
     @media (max-width: 900px) {
       .steps { grid-template-columns: 1fr 1fr; }
@@ -613,6 +713,10 @@
       .made { order: -1; flex: 1 1 100%; justify-content: center; padding-bottom: 4px; }
       nav { gap: 16px; }
       header img { height: 14px; }
+      .brand-rule { width: 56px; height: 7px; }
+      .hero-frame { inset: 16px var(--pad) 24px; }
+      .hero-bracket { width: 14px; height: 14px; opacity: 0.55; }
+      .panel-tick { width: 10px; height: 10px; }
       .hero {
         grid-template-columns: 1fr;
         min-height: auto;
@@ -642,6 +746,9 @@
       .steps { grid-template-columns: 1fr; }
       .step { border-right: 0; border-bottom: 1px solid var(--line); padding: 24px 0; }
       .step:last-child { border-bottom: 0; }
+      .hero-bracket { display: none; }
+      .panel-tick { display: none; }
+      .colophon-mark { width: 56px; height: 10px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -664,6 +771,7 @@
       .cube-ghost { display: none; }
       .cube-rig { transform: none !important; }
       .hero::before { opacity: 1; }
+      .hero-grain { animation: none; opacity: 0.07; }
       .cube-floor { opacity: 1; }
       .practice.reveal .step,
       .practice.reveal.in .step,
@@ -676,9 +784,24 @@
   </style>
 </head>
 <body>
+  <!--
+    Accents: Fox Rockett Studio, commercial license order #14348
+    (Micrographics Vol.1: mg45, mg35, mg5, mg120; Vector Shape Pack V1: shape-cross).
+    Hero grain is original CSS / SVG noise inspired by film texture packs
+    (Minimal Noise / Super 8mm). No McFarlane media files are embedded.
+  -->
   <header>
-    <a href="#top" aria-label="517 Industries">
+    <a class="brand" href="#top" aria-label="517 Industries">
       <img src="lu06.svg" alt="517 Industries" />
+      <span class="brand-rule" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 177.6 17.45" fill="currentColor">
+          <path d="M8.72.75c4.4,0,7.97,3.58,7.97,7.97s-3.58,7.97-7.97,7.97S.75,13.12.75,8.72,4.33.75,8.72.75M8.72,0C3.91,0,0,3.91,0,8.72s3.91,8.72,8.72,8.72,8.72-3.91,8.72-8.72S13.54,0,8.72,0h0Z"/>
+          <rect x="8.22" y="4.34" width="1" height="8.77"/>
+          <rect x="4.34" y="8.22" width="8.77" height="1"/>
+          <rect x="17.15" y="8.22" width="159.92" height="1"/>
+          <polygon points="171.7,4.54 177.07,8.72 171.7,12.91 170.55,11.76 174.1,8.72 170.55,5.69"/>
+        </svg>
+      </span>
     </a>
     <nav>
       <a href="#lab">Lab</a>
@@ -688,6 +811,15 @@
 
   <main id="top">
     <section class="hero">
+      <div class="hero-grain" aria-hidden="true"></div>
+      <div class="hero-frame" aria-hidden="true">
+        <span class="hero-bracket nw">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36.35 36.35" fill="none" stroke="currentColor" stroke-width="3" stroke-miterlimit="10"><line x1="1.5" y1="1.5" x2="34.85" y2="34.85"/><line stroke-linecap="square" x1="1.5" y1="34.85" x2="34.85" y2="34.85"/><line stroke-linecap="square" x1="34.85" y1="1.5" x2="34.85" y2="34.85"/></svg>
+        </span>
+        <span class="hero-bracket ne">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36.35 36.35" fill="none" stroke="currentColor" stroke-width="3" stroke-miterlimit="10"><line x1="1.5" y1="1.5" x2="34.85" y2="34.85"/><line stroke-linecap="square" x1="1.5" y1="34.85" x2="34.85" y2="34.85"/><line stroke-linecap="square" x1="34.85" y1="1.5" x2="34.85" y2="34.85"/></svg>
+        </span>
+      </div>
       <div class="cube-stage" aria-hidden="true">
         <div class="cube-rig">
           <div class="cube">
@@ -734,6 +866,50 @@
     </section>
 
     <section class="statement reveal" id="lab">
+      <span class="panel-tick" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52.36 52.36" fill="currentColor">
+          <rect x="0" y="0" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="7.69" y="0" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="15.39" y="0" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="23.08" y="0" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="30.77" y="0" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="38.47" y="0" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="46.16" y="0" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="0" y="7.69" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="7.69" y="7.69" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="15.39" y="7.69" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="30.77" y="7.69" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="38.47" y="7.69" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="46.16" y="7.69" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="0" y="15.39" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="7.69" y="15.39" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="15.39" y="15.39" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="30.77" y="15.39" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="38.47" y="15.39" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="46.16" y="15.39" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="0" y="23.08" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="46.16" y="23.08" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="0" y="30.77" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="7.69" y="30.77" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="15.39" y="30.77" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="30.77" y="30.77" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="38.47" y="30.77" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="46.16" y="30.77" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="0" y="38.47" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="7.69" y="38.47" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="15.39" y="38.47" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="30.77" y="38.47" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="38.47" y="38.47" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="46.16" y="38.47" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="0" y="46.16" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="7.69" y="46.16" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="15.39" y="46.16" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="23.08" y="46.16" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="30.77" y="46.16" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="38.47" y="46.16" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+          <rect x="46.16" y="46.16" width="6.2" height="6.2" rx="1.84" ry="1.84"/>
+        </svg>
+      </span>
       <p>
         <span class="clip"><span class="word" style="--i:0">We</span></span>
         <span class="clip"><span class="word" style="--i:1">try</span></span>
@@ -751,7 +927,17 @@
 
     <section class="close reveal" id="contact">
       <span class="place">Texas, USA</span>
-      <a class="mail" href="mailto:hello@517industries.com">hello@517industries.com</a>
+      <div class="mail-row">
+        <span class="colophon-mark" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 142.47 26.04" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2">
+            <line x1="129.45" x2="129.45" y2="26.04"/>
+            <line y1="13.02" x2="142.47" y2="13.02"/>
+            <line x1="120.24" y1="3.81" x2="138.65" y2="22.22"/>
+            <line x1="120.24" y1="22.22" x2="138.65" y2="3.81"/>
+          </svg>
+        </span>
+        <a class="mail" href="mailto:hello@517industries.com">hello@517industries.com</a>
+      </div>
     </section>
   </main>
 
