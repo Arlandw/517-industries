@@ -89,10 +89,10 @@
     }
     .brand-rule {
       display: block;
-      width: 82px;
-      height: 9px;
+      width: 88px;
+      height: 10px;
       color: var(--steel);
-      opacity: 0.7;
+      opacity: 0.78;
     }
     .brand-rule svg {
       display: block;
@@ -153,9 +153,9 @@
       inset: 0;
       pointer-events: none;
       z-index: 1;
-      opacity: 0.09;
-      mix-blend-mode: overlay;
-      filter: grayscale(1) contrast(1.15);
+      opacity: 0.11;
+      mix-blend-mode: soft-light;
+      filter: grayscale(1) contrast(1.2);
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       background-size: 220px 220px;
       animation: grain-drift 1.4s steps(5) infinite;
@@ -188,7 +188,12 @@
       right: 0;
       transform: scaleY(-1);
     }
-    .hero-copy { position: relative; min-width: 0; }
+    .hero-copy,
+    .hero-aside {
+      position: relative;
+      z-index: 3;
+    }
+    .hero-copy { min-width: 0; }
     .hero h1 {
       margin: 0 0 18px;
       font-size: clamp(34px, 5.2vw, 68px);
@@ -462,11 +467,11 @@
     }
     .panel-tick {
       display: block;
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
       margin: 0 0 18px;
       color: var(--steel);
-      opacity: 0.7;
+      opacity: 0.78;
     }
     .panel-tick svg {
       display: block;
@@ -624,10 +629,10 @@
     }
     .colophon-mark {
       display: block;
-      width: 72px;
-      height: 13px;
+      width: 96px;
+      height: 18px;
       color: var(--steel);
-      opacity: 0.7;
+      opacity: 0.82;
     }
     .colophon-mark svg {
       display: block;
@@ -713,7 +718,7 @@
       .made { order: -1; flex: 1 1 100%; justify-content: center; padding-bottom: 4px; }
       nav { gap: 16px; }
       header img { height: 14px; }
-      .brand-rule { width: 56px; height: 7px; }
+      .brand-rule { width: 64px; height: 8px; }
       .hero-frame { inset: 16px var(--pad) 24px; }
       .hero-bracket { width: 14px; height: 14px; opacity: 0.55; }
       .panel-tick { width: 10px; height: 10px; }
@@ -748,7 +753,7 @@
       .step:last-child { border-bottom: 0; }
       .hero-bracket { display: none; }
       .panel-tick { display: none; }
-      .colophon-mark { width: 56px; height: 10px; }
+      .colophon-mark { width: 72px; height: 14px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -771,7 +776,7 @@
       .cube-ghost { display: none; }
       .cube-rig { transform: none !important; }
       .hero::before { opacity: 1; }
-      .hero-grain { animation: none; opacity: 0.07; }
+      .hero-grain { animation: none; opacity: 0.08; }
       .cube-floor { opacity: 1; }
       .practice.reveal .step,
       .practice.reveal.in .step,
@@ -929,7 +934,7 @@
       <span class="place">Texas, USA</span>
       <div class="mail-row">
         <span class="colophon-mark" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 142.47 26.04" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 142.47 26.04" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2.4">
             <line x1="129.45" x2="129.45" y2="26.04"/>
             <line y1="13.02" x2="142.47" y2="13.02"/>
             <line x1="120.24" y1="3.81" x2="138.65" y2="22.22"/>
