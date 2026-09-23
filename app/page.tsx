@@ -76,7 +76,7 @@ export default function Home() {
           </a>
           <p>Independent research.<br />Open-ended possibility.</p>
         </div>
-        <div className="footer-bottom mono"><span>© {new Date().getFullYear()} 517 Industries</span><span>Research &amp; development</span><span>Manufacturing / Artificial intelligence</span></div>
+        <div className="footer-bottom mono"><div className="footer-contact"><a href="mailto:hello@517industries.com">hello@517industries.com</a><span className="footer-place">Texas, USA</span></div><span>© {new Date().getFullYear()} 517 Industries</span><span>Research &amp; development</span><span>Manufacturing / Artificial intelligence</span></div>
       </footer>
     </>
   );

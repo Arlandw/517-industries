@@ -45,6 +45,8 @@ jobs:
           test -f dist/client/assets/517_compact_White.svg
           test -f dist/client/assets/material-study.webp
           grep -q "put to work" dist/client/index.html
+          grep -q "mailto:hello@517industries.com" dist/client/index.html
+          grep -q "Texas, USA" dist/client/index.html
           if grep -Ei 'lu06|frisco|gmail' dist/client/index.html; then
             echo "Published HTML contains a retired mark or a disallowed contact." >&2
             exit 1
