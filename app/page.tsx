@@ -1,4 +1,5 @@
 import { SiteMotion } from "@/components/site-motion";
+import { ScrollRidges } from "@/components/scroll-ridges";
 
 const Arrow = ({ diagonal = false }: { diagonal?: boolean }) => (
   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="arrow"><path d={diagonal ? "M6 18 18 6M6 6h12v12" : "M4 12h16m-6-6 6 6-6 6"} stroke="currentColor" strokeWidth="1.4" /></svg>
@@ -8,24 +9,22 @@ export default function Home() {
   return (
     <>
       <SiteMotion />
+      <ScrollRidges />
       <a className="skip-link" href="#main">Skip to content</a>
       <header className="site-header">
-        <a href="#top" className="brand-link" aria-label="517 Industries home"><img src="/assets/517_compact_White.svg" alt="517 Industries" width="740" height="210" /></a>
+        <a href="#top" className="brand-link" aria-label="517 Industries home"><img src="/assets/517-wordmark.svg" alt="517 Industries" width="780" height="82" /></a>
         <span className="header-descriptor mono">Independent R&amp;D</span>
         <nav aria-label="Main navigation"><a href="#company">Company</a><a href="#exploration">Exploration</a><a href="#approach">Approach</a></nav>
       </header>
-      <main id="main">
+      <main id="main" className="terrain-page">
         <section className="hero" id="top" aria-labelledby="hero-title">
-          <div className="hero-grid" aria-hidden="true" />
-          <img className="hero-image" src="/assets/material-study.webp" alt="" width="1536" height="1024" fetchPriority="high" />
-          <div className="hero-shade" />
           <div className="hero-copy hero-enter">
-            <p className="eyebrow mono">517 Industries <span>/</span> Research &amp; development</p>
+            <p className="eyebrow mono">Independent research <span>/</span> Open possibility</p>
             <h1 id="hero-title">Curiosity,<br />put to work.</h1>
             <p className="hero-intro">Exploring manufacturing, artificial intelligence,<br className="desktop-break" /> and the possibilities between.</p>
             <a className="text-link" href="#exploration">Explore our direction <Arrow /></a>
           </div>
-          <div className="hero-foot mono"><span>Ideas. Experiments. Possibilities.</span><span className="study-label">Material study <span aria-hidden="true">/</span> 001</span></div>
+          <div className="hero-foot mono"><span>Manufacturing <span aria-hidden="true">/</span> Artificial intelligence</span><span className="study-label">An open field of possibility</span></div>
         </section>
         <section className="company section-pad" id="company" aria-labelledby="company-title">
           <div className="section-heading reveal" data-reveal><p className="eyebrow mono"><span className="section-number">01</span> The company</p><span className="mono aside-label">An independent point of view</span></div>
@@ -59,7 +58,7 @@ export default function Home() {
         <section className="approach section-pad" id="approach" aria-labelledby="approach-title">
           <div className="section-heading reveal" data-reveal><p className="eyebrow mono"><span className="section-number">03</span> The approach</p><span className="mono aside-label">Let the work lead.</span></div>
           <div className="approach-grid">
-            <div className="approach-intro reveal" data-reveal><h2 id="approach-title">An open mind.<br />A practical instinct.</h2><p>We give ideas room to develop, then put them in contact with reality.</p><img className="approach-mark" src="/assets/517_symbol_White.svg" alt="" width="400" height="388" loading="lazy" /></div>
+            <div className="approach-intro reveal" data-reveal><h2 id="approach-title">An open mind.<br />A practical instinct.</h2><p>We give ideas room to develop, then put them in contact with reality.</p></div>
             <ol className="method-list">
               <li className="reveal" data-reveal><span className="mono">01 /</span><div><h3>Ask better questions.</h3><p>Look closely. Challenge the assumption. Find the part of a problem that deserves another look.</p></div></li>
               <li className="reveal" data-reveal><span className="mono">02 /</span><div><h3>Make it tangible.</h3><p>Move from an idea to something we can test: a model, a prototype, a piece of software, or a different process.</p></div></li>
@@ -67,16 +66,24 @@ export default function Home() {
             </ol>
           </div>
         </section>
-        <section className="closing section-pad" aria-labelledby="closing-title"><div className="reveal" data-reveal><p className="eyebrow mono">The next chapter is open.</p><h2 id="closing-title">Built to see<br />what’s possible.</h2><p>New questions. Different disciplines.<br />The same instinct to explore.</p></div><a className="text-link" href="#top">Back to the beginning <Arrow diagonal /></a></section>
+        <section className="closing section-pad" id="closing" aria-labelledby="closing-title"><div className="reveal" data-reveal><p className="eyebrow mono">The next chapter is open.</p><h2 id="closing-title">Built to see<br />what’s possible.</h2><p>New questions. Different disciplines.<br />The same instinct to explore.</p></div><a className="text-link" href="#top">Back to the beginning <Arrow diagonal /></a></section>
       </main>
       <footer className="site-footer">
         <div className="footer-top">
           <a className="footer-brand" href="#top" aria-label="517 Industries — back to top">
-            <img src="/assets/517_compact_White.svg" alt="517 Industries" width="740" height="210" loading="lazy" />
+            <img src="/assets/517-wordmark.svg" alt="517 Industries" width="780" height="82" loading="lazy" />
           </a>
           <p>Independent research.<br />Open-ended possibility.</p>
         </div>
-        <div className="footer-bottom mono"><div className="footer-contact"><a href="mailto:hello@517industries.com">hello@517industries.com</a><span className="footer-place">Texas, USA</span></div><span>© {new Date().getFullYear()} 517 Industries</span><span>Research &amp; development</span><span>Manufacturing / Artificial intelligence</span></div>
+        <div className="footer-bottom mono">
+          <div className="footer-contact">
+            <a href="mailto:hello@517industries.com">hello@517industries.com</a>
+            <span className="footer-place">Texas, USA</span>
+          </div>
+          <span>© {new Date().getFullYear()} 517 Industries</span>
+          <span>Research &amp; development</span>
+          <span>Manufacturing / Artificial intelligence</span>
+        </div>
       </footer>
     </>
   );

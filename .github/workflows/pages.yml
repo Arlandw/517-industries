@@ -42,8 +42,10 @@ jobs:
           cp CNAME dist/client/CNAME
           cp .nojekyll dist/client/.nojekyll
           test -f dist/client/index.html
-          test -f dist/client/assets/517_compact_White.svg
+          test -f dist/client/assets/517-wordmark.svg
+          test -f dist/client/favicon.svg
           test -f dist/client/assets/material-study.webp
+          grep -q "/assets/517-wordmark.svg" dist/client/index.html
           grep -q "put to work" dist/client/index.html
           grep -q "mailto:hello@517industries.com" dist/client/index.html
           grep -q "Texas, USA" dist/client/index.html

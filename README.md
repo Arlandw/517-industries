@@ -34,11 +34,13 @@ pnpm start
 
 ## Main files
 
-- `app/page.tsx` — page structure and copy
-- `app/globals.css` — visual design and responsive styling
-- `components/site-motion.tsx` — motion and scroll interactions
-- `public/assets/` — logos and hero artwork
-- `app/layout.tsx` — site metadata
+- `app/page.tsx`: text, navigation, and page sections
+- `app/globals.css`: typography, spacing, colors, and responsive layouts
+- `components/scroll-ridges.tsx`: ridge animation, pause control, and reduced motion
+- `components/ridge-field.ts`: contour geometry and colors
+- `components/site-motion.tsx`: reveal motion
+- `public/assets/517-wordmark.svg`: approved vector logo
+- `app/layout.tsx`: page title, description, and favicon
 
 The dependency lockfile is included so the site installs with the same package versions used for the deployed build. Generated folders such as `node_modules`, `dist`, and `.next` are intentionally excluded and will be recreated by the commands above.
 
@@ -64,7 +66,7 @@ Pushing to `main` runs `.github/workflows/pages.yml`, which installs with pnpm 1
 - `CNAME` in the repo root is `517industries.com`. The workflow copies it into the published folder so a deploy keeps the custom domain.
 - DNS is hosted on Cloudflare (`novalee.ns.cloudflare.com`, `titan.ns.cloudflare.com`). The apex and `www` are proxied by Cloudflare and already origin-point at GitHub Pages. Merging this change does not require a DNS edit.
 
-The page copy and marks come from this package: monochrome `public/assets/517_*.svg` logos, no LU_06 mark. This design does not print a street address or a second email. Do not add a Frisco location or a Gmail address.
+The page copy and marks come from this package: the approved vector wordmark at `public/assets/517-wordmark.svg`, the Foundry palette, and the topographic ridge background. Older `public/assets/517_*.svg` files remain in the package and are not the header mark. There is no LU_06 mark. The footer shows `hello@517industries.com` and `Texas, USA`. Do not add a Frisco location or a Gmail address.
 
 ### Cloudflare Workers later
 
