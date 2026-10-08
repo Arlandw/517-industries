@@ -5,6 +5,20 @@ const Arrow = ({ diagonal = false }: { diagonal?: boolean }) => (
   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="arrow"><path d={diagonal ? "M6 18 18 6M6 6h12v12" : "M4 12h16m-6-6 6 6-6 6"} stroke="currentColor" strokeWidth="1.4" /></svg>
 );
 
+const FLAG_STARS = [1.7, 3.5, 5.3, 7.1, 8.9].flatMap((cy, row) =>
+  (row % 2 ? [3.65, 6.55, 9.45, 12.35] : [2.2, 5.1, 8, 10.9, 13.8]).map((cx) => ({ cx, cy })),
+);
+
+const Flag = () => (
+  <svg className="footer-flag" viewBox="0 0 38 20" width="28" height="15" aria-hidden="true" focusable="false">
+    <path className="footer-flag-stripes" d="M0 0h38v1.54H0zM0 3.08h38v1.54H0zM0 6.16h38v1.54H0zM0 9.24h38v1.54H0zM0 12.32h38v1.54H0zM0 15.4h38v1.54H0zM0 18.48h38V20H0z" />
+    <rect className="footer-flag-canton" width="15.2" height="10.77" />
+    <g className="footer-flag-stars">
+      {FLAG_STARS.map(({ cx, cy }) => <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="0.42" />)}
+    </g>
+  </svg>
+);
+
 export default function Home() {
   return (
     <>
@@ -80,6 +94,7 @@ export default function Home() {
             <a href="mailto:hello@517industries.com">hello@517industries.com</a>
             <span className="footer-place">Texas, USA</span>
           </div>
+          <div className="footer-made"><Flag /><span>Built in America</span></div>
           <span>© {new Date().getFullYear()} 517 Industries</span>
           <span>Research &amp; development</span>
           <span>Manufacturing / Artificial intelligence</span>
