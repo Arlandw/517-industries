@@ -115,6 +115,11 @@ h2{font-size:clamp(2.75rem,4.5vw,5.25rem);font-weight:400;line-height:1.065;lett
 .footer-contact a{color:var(--primary)}
 .footer-contact a:hover{color:var(--copper)}
 .footer-place{color:var(--muted-foreground)}
+.footer-made{display:flex;align-items:center;gap:.75rem;flex:1 0 100%;color:#939495}
+.footer-flag{display:block;flex-shrink:0;width:28px;height:15px}
+.footer-flag-stripes{fill:#bab8b5}
+.footer-flag-canton{fill:#0d1015}
+.footer-flag-stars{fill:#e9e1d6}
 .motion-toggle{position:fixed;bottom:22px;right:24px;z-index:30;height:40px;padding:0 15px;border:1px solid #e9e1d647!important;border-radius:2px!important;background:#101218eb!important;color:var(--paper)!important;backdrop-filter:blur(16px);font-family:"SFMono-Regular",Consolas,monospace;font-size:.75rem;cursor:pointer;box-shadow:none!important;transition:background 200ms ease,border-color 200ms ease}
 .motion-toggle:hover{background:#20252c!important;border-color:#c17d50aa!important}
 .motion-toggle:disabled{opacity:.8}
