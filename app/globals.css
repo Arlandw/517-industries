@@ -115,23 +115,19 @@ h2{font-size:clamp(2.75rem,4.5vw,5.25rem);font-weight:400;line-height:1.065;lett
 .footer-contact a{color:var(--primary)}
 .footer-contact a:hover{color:var(--copper)}
 .footer-place{color:var(--muted-foreground)}
-/* Home base: line-work flag (build_flag_svg.py) and office map (build_office_map.py, OSM data) */
+/* Home base: monochrome hairline flag (517studio option B) and office map (build_office_map.py, OSM data) */
 .home-base{background:linear-gradient(100deg,#101218f2,#101218d9 60%,#101218a8);border-top:1px solid var(--line)}
 .home-base-grid{display:grid;grid-template-columns:1.08fr 1fr;gap:9%;align-items:center;margin-bottom:4.75rem}
 .home-base h2{font-size:clamp(2.5rem,3.9vw,4.5rem)}
 .home-flag{margin:0;padding:6px 0}
 .flag-art{display:block;width:100%;height:auto;overflow:visible}
-.flag-stripe,.flag-hatch{fill:none;stroke-width:1.1;stroke-linecap:round;vector-effect:non-scaling-stroke}
-.flag-stripe{transform-box:view-box;transform-origin:0 0;transition:transform 1100ms cubic-bezier(.22,1,.36,1) calc(var(--i) * 45ms + 150ms)}
-.flag-stripe.is-red{stroke:var(--paper);stroke-opacity:.74}
-.flag-stripe.is-white{stroke:#bab8b5;stroke-opacity:.34}
-.flag-field{fill:var(--paper);fill-opacity:.025}
-.flag-hatch{stroke:#bab8b5;stroke-opacity:.3;stroke-width:.9}
-.flag-stars{fill:var(--paper)}
-.flag-union{transition:opacity 900ms ease 250ms}
-.js-motion .home-flag:not(.is-visible) .flag-stripe{transform:scaleX(0)}
-.js-motion .home-flag:not(.is-visible) .flag-union{opacity:0}
-.home-base[data-still] .flag-stripe,.home-base[data-still] .flag-union{transition:none}
+.flag-mono svg *{vector-effect:non-scaling-stroke}
+.flag-frame{fill:none;stroke:var(--paper);stroke-opacity:.3;stroke-width:1}
+.flag-band{fill:none;stroke:var(--paper);stroke-opacity:.82;stroke-width:1}
+.flag-stars{fill:none;stroke:var(--paper);stroke-opacity:.9;stroke-width:1;stroke-linejoin:round}
+.flag-mono .flag-band,.flag-mono .flag-union{transition:opacity 700ms ease calc(var(--i,7) * 60ms + 150ms)}
+.js-motion .flag-mono:not(.is-visible) .flag-band,.js-motion .flag-mono:not(.is-visible) .flag-union{opacity:0}
+.home-base[data-still] .flag-band,.home-base[data-still] .flag-union{transition:none}
 .office-panels{display:grid;grid-template-columns:.78fr 1.22fr;background:#101218c9;border-block:1px solid var(--line)}
 .office-details{display:flex;flex-direction:column;align-items:flex-start;padding:2.5rem}
 .office-meta{display:flex;justify-content:space-between;gap:1rem;width:100%;text-transform:uppercase;color:#a7a7a7;font-size:.75rem}
