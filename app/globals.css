@@ -115,11 +115,40 @@ h2{font-size:clamp(2.75rem,4.5vw,5.25rem);font-weight:400;line-height:1.065;lett
 .footer-contact a{color:var(--primary)}
 .footer-contact a:hover{color:var(--copper)}
 .footer-place{color:var(--muted-foreground)}
-.footer-made{display:flex;align-items:center;gap:.75rem;flex:1 0 100%;color:#939495}
-.footer-flag{display:block;flex-shrink:0;width:28px;height:15px}
-.footer-flag-stripes{fill:#bab8b5}
-.footer-flag-canton{fill:#0d1015}
-.footer-flag-stars{fill:#e9e1d6}
+/* Home base: line-work flag (build_flag_svg.py) and office map (build_office_map.py, OSM data) */
+.home-base{background:linear-gradient(100deg,#101218f2,#101218d9 60%,#101218a8);border-top:1px solid var(--line)}
+.home-base-grid{display:grid;grid-template-columns:1.08fr 1fr;gap:9%;align-items:center;margin-bottom:4.75rem}
+.home-base h2{font-size:clamp(2.5rem,3.9vw,4.5rem)}
+.home-flag{margin:0;padding:6px 0}
+.flag-art{display:block;width:100%;height:auto;overflow:visible}
+.flag-stripe,.flag-hatch{fill:none;stroke-width:1.1;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.flag-stripe{transform-box:view-box;transform-origin:0 0;transition:transform 1100ms cubic-bezier(.22,1,.36,1) calc(var(--i) * 45ms + 150ms)}
+.flag-stripe.is-red{stroke:var(--paper);stroke-opacity:.74}
+.flag-stripe.is-white{stroke:#bab8b5;stroke-opacity:.34}
+.flag-field{fill:var(--paper);fill-opacity:.025}
+.flag-hatch{stroke:#bab8b5;stroke-opacity:.3;stroke-width:.9}
+.flag-stars{fill:var(--paper)}
+.flag-union{transition:opacity 900ms ease 250ms}
+.js-motion .home-flag:not(.is-visible) .flag-stripe{transform:scaleX(0)}
+.js-motion .home-flag:not(.is-visible) .flag-union{opacity:0}
+.home-base[data-still] .flag-stripe,.home-base[data-still] .flag-union{transition:none}
+.office-panels{display:grid;grid-template-columns:.78fr 1.22fr;background:#101218c9;border-block:1px solid var(--line)}
+.office-details{display:flex;flex-direction:column;align-items:flex-start;padding:2.5rem}
+.office-meta{display:flex;justify-content:space-between;gap:1rem;width:100%;text-transform:uppercase;color:#a7a7a7;font-size:.75rem}
+.office-details address{display:flex;flex-direction:column;gap:.35rem;margin:2.8rem 0 2.5rem;font-style:normal;font-size:clamp(1.5rem,2.1vw,2rem);line-height:1.25;letter-spacing:-.03em}
+.office-details address span+span{color:var(--alloy)}
+.office-details .text-link{margin-top:auto}
+.office-map{display:flex;flex-direction:column;margin:0;border-left:1px solid var(--line)}
+.map-frame{position:relative;aspect-ratio:10/7;background:#0e1016;overflow:hidden}
+.map-frame img{display:block;width:100%;height:100%;object-fit:cover}
+.map-label{position:absolute;padding:3px 7px;background:#0e1016;color:#bab8b5;font-size:.625rem;line-height:1.4;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.map-label-tollway{left:45.3%;top:17%;transform:translate(-50%,-50%) rotate(-90deg)}
+.map-label-legacy{left:15%;top:47.1%;transform:translate(-50%,-50%)}
+.map-pin{position:absolute;left:50%;top:50%;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:var(--copper)}
+.map-pin::after{content:"";position:absolute;inset:-7px;border:1px solid var(--copper);border-radius:50%;opacity:.55}
+.office-map figcaption{padding:.85rem 1.25rem;border-top:1px solid var(--line);color:#a3a2a2;font-size:.6875rem}
+.office-map figcaption a{border-bottom:1px solid #e9e1d640;transition:color 220ms ease,border-color 220ms ease}
+.office-map figcaption a:hover{color:#deb492;border-color:var(--copper)}
 .motion-toggle{position:fixed;bottom:22px;right:24px;z-index:30;height:40px;padding:0 15px;border:1px solid #e9e1d647!important;border-radius:2px!important;background:#101218eb!important;color:var(--paper)!important;backdrop-filter:blur(16px);font-family:"SFMono-Regular",Consolas,monospace;font-size:.75rem;cursor:pointer;box-shadow:none!important;transition:background 200ms ease,border-color 200ms ease}
 .motion-toggle:hover{background:#20252c!important;border-color:#c17d50aa!important}
 .motion-toggle:disabled{opacity:.8}
@@ -131,7 +160,7 @@ h2{font-size:clamp(2.75rem,4.5vw,5.25rem);font-weight:400;line-height:1.065;lett
 @keyframes hero-enter{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 
 @media(min-width:1700px){.section-pad{padding-top:6rem;padding-bottom:7rem}.company-copy{max-width:600px}}
-@media(max-width:1100px){.header-descriptor{display:none}.brand-link{width:264px}.company-grid,.section-intro,.approach-grid{gap:6%}.study-label{display:none}.intersection{grid-template-columns:1fr 1.5fr;gap:1.5rem}.intersection>span{grid-column:1/-1}.focus-panel{padding:1.75rem}.focus-panel::after{left:1.75rem;right:1.75rem}}
+@media(max-width:1100px){.header-descriptor{display:none}.home-base-grid{gap:6%}.office-details{padding:1.75rem}.brand-link{width:264px}.company-grid,.section-intro,.approach-grid{gap:6%}.study-label{display:none}.intersection{grid-template-columns:1fr 1.5fr;gap:1.5rem}.intersection>span{grid-column:1/-1}.focus-panel{padding:1.75rem}.focus-panel::after{left:1.75rem;right:1.75rem}}
 @media(max-width:700px){
   html{scroll-padding-top:1.5rem}
   .site-header{position:relative;min-height:125px;flex-wrap:wrap;gap:20px;padding-top:22px;padding-bottom:16px}
@@ -177,6 +206,17 @@ h2{font-size:clamp(2.75rem,4.5vw,5.25rem);font-weight:400;line-height:1.065;lett
   .closing h2{font-size:clamp(3rem,11.7vw,5rem);margin-top:2rem}
   .closing>div>p:not(.eyebrow){font-size:1.0625rem}
   .closing .text-link{margin-top:2rem}
+  .home-base-grid{grid-template-columns:1fr;gap:2.5rem;margin-bottom:2.75rem}
+  .home-base h2{font-size:clamp(2.2rem,8.6vw,3.2rem)}
+  .office-panels{grid-template-columns:1fr}
+  .office-details{padding:1.5rem}
+  .office-details address{font-size:1.4rem;margin:2rem 0 1.8rem}
+  .office-map{border-left:0;border-top:1px solid var(--line)}
+  .map-frame{aspect-ratio:1/1}
+  .map-label{font-size:.5625rem;padding:2px 5px}
+  .map-label-tollway{left:43.3%}
+  .map-label-legacy{left:17%}
+  .office-map figcaption{padding:.8rem 1.5rem}
   .site-footer{padding-top:2.5rem;padding-bottom:6.5rem}
   .footer-top{flex-direction:column;align-items:flex-start;gap:1.5rem;margin-bottom:2rem}
   .footer-brand{width:min(268px,100%)}
