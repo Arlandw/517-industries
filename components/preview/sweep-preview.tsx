@@ -11,6 +11,7 @@ const MASK = "url(/assets/517-wordmark.svg)";
 // With no WebGPU, under reduced motion, or while paused, the wordmark is exactly today's.
 export function SweepPreview() {
   const [host, setHost] = useState<HTMLElement | null>(null);
+  const [box, setBox] = useState({ left: 0, top: 0, width: 0, height: 0 });
   const ref = useRef<HTMLCanvasElement>(null);
   const instance = useRef<Instance | null>(null);
   const [ready, setReady] = useState(false);
@@ -22,7 +23,13 @@ export function SweepPreview() {
     const previous = link.style.position;
     link.style.position = "relative";
     setHost(link);
-    return () => { link.style.position = previous; };
+    // Track the wordmark image box so the mask always sits exactly on the letterforms.
+    const image = link.querySelector("img");
+    const place = () => { if (image) setBox({ left: image.offsetLeft, top: image.offsetTop, width: image.offsetWidth, height: image.offsetHeight }); };
+    place();
+    const observer = new ResizeObserver(place);
+    if (image) observer.observe(image);
+    return () => { observer.disconnect(); link.style.position = previous; };
   }, []);
 
   useEffect(() => {
@@ -50,11 +57,13 @@ export function SweepPreview() {
 
   if (!host) return null;
   return createPortal(
-    <canvas ref={ref} aria-hidden="true" style={{
-      position: "absolute", left: 0, top: 6, width: "100%", height: "calc(100% - 12px)", pointerEvents: "none",
+    <span aria-hidden="true" style={{
+      position: "absolute", left: box.left, top: box.top, width: box.width, height: box.height, overflow: "hidden", pointerEvents: "none",
       mixBlendMode: "screen", opacity: ready && !still ? 1 : 0, transition: "opacity 600ms ease",
       maskImage: MASK, WebkitMaskImage: MASK, maskSize: "100% 100%", WebkitMaskSize: "100% 100%", maskRepeat: "no-repeat", WebkitMaskRepeat: "no-repeat",
-    }} />,
+    }}>
+      <canvas ref={ref} style={{ display: "block", width: "100%", height: "100%" }} />
+    </span>,
     host,
   );
 }
