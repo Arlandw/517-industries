@@ -1,5 +1,8 @@
 # Copied Sites are standalone projects and cannot inherit the monorepo policy.
 minimumReleaseAge: 10080
+# Only exception: shaders 4.0.4 (released 2026-10-09), approved for the private preview pages.
+minimumReleaseAgeExclude:
+  - shaders@4.0.4
 minimumReleaseAgeIgnoreMissingTime: false
 trustLockfile: false
 strictDepBuilds: true
