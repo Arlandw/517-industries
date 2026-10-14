@@ -89,8 +89,8 @@ details p{padding:0 0 1.25rem;color:var(--muted)}
 .buy{background:var(--orange-deep);color:var(--black);display:grid;overflow:hidden}
 .buy-copy{padding:clamp(3.5rem,8vw,6rem) var(--pad) 0}
 .buy-price{font-size:1.5rem;font-weight:700;margin:1rem 0 1.5rem}
-.buy picture img{aspect-ratio:16/8;object-fit:cover;object-position:50% 45%}
-@media (min-width:900px){.buy{grid-template-columns:minmax(0,4fr) minmax(0,8fr);align-items:center}.buy-copy{padding:4rem var(--pad)}.buy picture img{aspect-ratio:4/3}}
+.buy .clip,.buy picture img{aspect-ratio:16/8;object-fit:cover;object-position:50% 45%}
+@media (min-width:900px){.buy{grid-template-columns:minmax(0,4fr) minmax(0,8fr);align-items:center}.buy-copy{padding:4rem var(--pad)}.buy .clip,.buy .clip,.buy picture img{aspect-ratio:4/3}}
 /* footer */
 .foot{display:flex;flex-wrap:wrap;gap:.75rem 2rem;align-items:center;justify-content:space-between;padding:2rem var(--pad);color:var(--muted);font-size:.95rem}
 .foot .mark{color:var(--white)}
@@ -98,3 +98,34 @@ details p{padding:0 0 1.25rem;color:var(--muted)}
 .js-reveal .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
 .js-reveal .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+/* premium touches (v5) */
+h1,h2,h3{text-wrap:balance;font-feature-settings:"kern","ss01"}
+h2{letter-spacing:-.045em}
+.lede,.ring-copy p,.inuse-lede{text-wrap:pretty}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:30;background:url(../img/grain.png);opacity:.035;mix-blend-mode:overlay}
+.hero-img{position:relative}
+.hero-img::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 55% 45%,transparent 55%,rgba(14,14,16,.55) 100%)}
+.btn{transition:transform .35s cubic-bezier(.2,.7,.2,1),background .2s,color .2s;will-change:transform}
+@supports (animation-timeline: view()){
+ @media (prefers-reduced-motion:no-preference){
+  .hero-img img{animation:hero-drift linear both;animation-timeline:view();animation-range:exit 0% exit 100%}
+  @keyframes hero-drift{to{transform:translateY(8%) scale(1.06)}}
+ }
+}
+.clip{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;background:var(--ink)}
+.buybar{display:none}
+@media (max-width:719px){
+ .buybar{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:25;align-items:center;justify-content:space-between;gap:.75rem;padding:8px 8px 8px 16px;border-radius:999px;background:rgba(22,22,26,.92);backdrop-filter:blur(10px);border:1px solid #2A2A30;transform:translateY(140%);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+ .buybar.on{transform:none}
+ .buybar-name{font-weight:800;letter-spacing:-.02em}
+ .buybar-price{font-weight:600;color:var(--muted);margin-left:.4rem}
+}
+@media (prefers-reduced-motion:reduce){.buybar{transition:none}}
+/* blend the clips into their orange bands */
+.ring{background:#FE833F}
+.buy{background:#FE763C}
+.ring .clip,.buy .clip{-webkit-mask-image:linear-gradient(to bottom,#000 85%,transparent);mask-image:linear-gradient(to bottom,#000 85%,transparent)}
+@media (min-width:900px){
+ .ring .clip{-webkit-mask-image:linear-gradient(to left,transparent,#000 15%);mask-image:linear-gradient(to left,transparent,#000 15%)}
+ .buy .clip{-webkit-mask-image:linear-gradient(to right,transparent,#000 15%);mask-image:linear-gradient(to right,transparent,#000 15%)}
+}
