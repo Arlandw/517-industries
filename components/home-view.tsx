@@ -1,7 +1,12 @@
 import { SiteMotion } from "@/components/site-motion";
 import { ScrollRidges } from "@/components/scroll-ridges";
 import { HomeBase } from "@/components/home-base";
+import { DitherNumerals } from "@/components/dither-numerals";
+import { ditherMask } from "@/lib/dither";
 import type { ReactNode } from "react";
+
+const linkMask = ditherMask(0.5, { matrix: "bayer4", cell: 3 });
+const washMask = ditherMask(0.1875, { matrix: "bayer4", cell: 3 });
 
 const Arrow = ({ diagonal = false }: { diagonal?: boolean }) => (
   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="arrow"><path d={diagonal ? "M6 18 18 6M6 6h12v12" : "M4 12h16m-6-6 6 6-6 6"} stroke="currentColor" strokeWidth="1.4" /></svg>
@@ -13,7 +18,7 @@ export function HomeView({ ridges }: { ridges?: ReactNode }) {
   return (
     <>
       <SiteMotion />
-      {ridges ?? <ScrollRidges />}
+      <style>{`:root{--dither-link-mask:${linkMask};--dither-wash-mask:${washMask}}`}</style>
       <a className="skip-link" href="#main">Skip to content</a>
       <header className="site-header">
         <a href="#top" className="brand-link" aria-label="517 Industries home"><img src="/assets/517-wordmark.svg" alt="517 Industries" width="780" height="82" /></a>
@@ -22,6 +27,8 @@ export function HomeView({ ridges }: { ridges?: ReactNode }) {
       </header>
       <main id="main" className="terrain-page">
         <section className="hero" id="top" aria-labelledby="hero-title">
+          {ridges ?? <ScrollRidges />}
+          <DitherNumerals />
           <div className="hero-copy hero-enter">
             <p className="eyebrow mono">Independent research <span>/</span> Open possibility</p>
             <h1 id="hero-title">Curiosity,<br />put to work.</h1>

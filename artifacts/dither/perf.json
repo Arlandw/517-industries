@@ -1,0 +1,16 @@
+{
+  "hero": {
+    "matrix": "bayer4",
+    "cellPx": 4,
+    "fpsCap": 30,
+    "desktopGrid": { "columns": 360, "rows": 202, "viewport": "1440x900" },
+    "mobileGrid": { "columns": 98, "rows": 183, "viewport": "390x844" }
+  },
+  "frames": { "rafMedianMs": 16.7, "rafP95Ms": 16.8 },
+  "transfer": { "homepageJsBytes": 465270, "homepageJsFiles": 12, "cssBytes": 146161 },
+  "canvases": 3,
+  "liveWebGLContexts": 1,
+  "overflow320": { "scrollWidth": 320, "clientWidth": 320 },
+  "pause": { "state": "static", "label": "Resume motion" },
+  "reducedMotion": { "state": "static", "label": "Reduced motion", "disabled": true }
+}

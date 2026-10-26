@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useRef, type CSSProperties } from "react";
+import { useEffect, useId, useRef, type CSSProperties } from "react";
+import { FillPattern } from "@/lib/dither";
+import { DitherMap } from "@/components/dither-map";
 
 const MAPS_URL = "https://www.google.com/maps/search/?api=1&query=7250+Dallas+Pkwy+Suite+400+Plano+TX+75024";
 
@@ -10,18 +12,28 @@ const Arrow = () => (
 
 // Monochrome hairline US flag (517studio.com option B). Only motion is a gentle staggered fade-in
 // of the bands on reveal, skipped under reduced motion and while the Pause motion control is on.
-const FlagArt = () => (
-  <svg className="flag-art" viewBox="-2 -2 764 404" role="img" aria-labelledby="home-flag-title"><title id="home-flag-title">Flag of the United States, drawn in hairlines</title><defs><path id="home-flag-star" d="M0 -12.3 2.8 -3.8 11.7 -3.8 4.5 1.5 7.2 10 0 4.7 -7.2 10 -4.5 1.5 -11.7 -3.8 -2.8 -3.8Z"/></defs>
+const FlagArt = () => {
+  const raw = useId().replace(/:/g, "");
+  const stripeId = `${raw}-stripe`;
+  const unionId = `${raw}-union`;
+  const stripe = `url(#${stripeId})`;
+  const union = `url(#${unionId})`;
+  return (
+  <svg className="flag-art" viewBox="-2 -2 764 404" role="img" aria-labelledby="home-flag-title"><title id="home-flag-title">Flag of the United States, drawn in hairlines</title><defs>
+      <path id="home-flag-star" d="M0 -12.3 2.8 -3.8 11.7 -3.8 4.5 1.5 7.2 10 0 4.7 -7.2 10 -4.5 1.5 -11.7 -3.8 -2.8 -3.8Z"/>
+      <FillPattern id={stripeId} fill="gradient" color="ink" cell={8} level={0.82} matrix="bayer4" />
+      <FillPattern id={unionId} fill="gradient" color="ink" cell={8} level={0.34} matrix="bayer4" />
+    </defs>
       <rect className="flag-frame" width="760" height="400"/>
-      <rect className="flag-band" style={{ "--i": 0 } as CSSProperties} x="304" y="0" width="456" height="30.8"/>
-      <rect className="flag-band" style={{ "--i": 1 } as CSSProperties} x="304" y="61.5" width="456" height="30.8"/>
-      <rect className="flag-band" style={{ "--i": 2 } as CSSProperties} x="304" y="123.1" width="456" height="30.8"/>
-      <rect className="flag-band" style={{ "--i": 3 } as CSSProperties} x="304" y="184.6" width="456" height="30.8"/>
-      <rect className="flag-band" style={{ "--i": 4 } as CSSProperties} x="0" y="246.2" width="760" height="30.8"/>
-      <rect className="flag-band" style={{ "--i": 5 } as CSSProperties} x="0" y="307.7" width="760" height="30.8"/>
-      <rect className="flag-band" style={{ "--i": 6 } as CSSProperties} x="0" y="369.2" width="760" height="30.8"/>
+      <rect className="flag-band" style={{ "--i": 0 } as CSSProperties} fill={stripe} x="304" y="0" width="456" height="30.8"/>
+      <rect className="flag-band" style={{ "--i": 1 } as CSSProperties} fill={stripe} x="304" y="61.5" width="456" height="30.8"/>
+      <rect className="flag-band" style={{ "--i": 2 } as CSSProperties} fill={stripe} x="304" y="123.1" width="456" height="30.8"/>
+      <rect className="flag-band" style={{ "--i": 3 } as CSSProperties} fill={stripe} x="304" y="184.6" width="456" height="30.8"/>
+      <rect className="flag-band" style={{ "--i": 4 } as CSSProperties} fill={stripe} x="0" y="246.2" width="760" height="30.8"/>
+      <rect className="flag-band" style={{ "--i": 5 } as CSSProperties} fill={stripe} x="0" y="307.7" width="760" height="30.8"/>
+      <rect className="flag-band" style={{ "--i": 6 } as CSSProperties} fill={stripe} x="0" y="369.2" width="760" height="30.8"/>
       <g className="flag-union">
-      <rect className="flag-band" width="304" height="215.4"/><g className="flag-stars">
+      <rect className="flag-band flag-union-plate" fill={union} width="304" height="215.4"/><g className="flag-stars">
         <use href="#home-flag-star" x="25.3" y="21.5"/>
         <use href="#home-flag-star" x="76" y="21.5"/>
         <use href="#home-flag-star" x="126.7" y="21.5"/>
@@ -72,22 +84,35 @@ const FlagArt = () => (
         <use href="#home-flag-star" x="177.3" y="193.8"/>
         <use href="#home-flag-star" x="228" y="193.8"/>
         <use href="#home-flag-star" x="278.7" y="193.8"/></g></g></svg>
-);
+  );
+};
 
 export function HomeBase() {
   const ref = useRef<HTMLElement>(null);
   useEffect(() => {
     const section = ref.current;
-    const toggle = document.querySelector<HTMLElement>(".motion-toggle");
-    if (!section || !toggle) return;
-    const sync = () => {
-      if (toggle.getAttribute("aria-pressed") === "true") section.dataset.still = "";
-      else delete section.dataset.still;
+    if (!section) return;
+    let observer: MutationObserver | undefined;
+    let timer = 0;
+    const attach = () => {
+      const toggle = document.querySelector<HTMLElement>(".motion-toggle");
+      if (!toggle) {
+        timer = window.setTimeout(attach, 40);
+        return;
+      }
+      const sync = () => {
+        if (toggle.getAttribute("aria-pressed") === "true") section.dataset.still = "";
+        else delete section.dataset.still;
+      };
+      sync();
+      observer = new MutationObserver(sync);
+      observer.observe(toggle, { attributes: true, attributeFilter: ["aria-pressed"] });
     };
-    sync();
-    const observer = new MutationObserver(sync);
-    observer.observe(toggle, { attributes: true, attributeFilter: ["aria-pressed"] });
-    return () => observer.disconnect();
+    attach();
+    return () => {
+      window.clearTimeout(timer);
+      observer?.disconnect();
+    };
   }, []);
 
   return (
@@ -105,7 +130,7 @@ export function HomeBase() {
         </div>
         <figure className="office-map reveal reveal-delay" data-reveal>
           <div className="map-frame">
-            <img src="/assets/office-map.svg" width="800" height="560" loading="lazy" decoding="async" alt="Street map of the Legacy area of Plano, Texas, with a pin at 7250 Dallas Parkway, beside the Dallas North Tollway and Legacy Drive." />
+            <DitherMap />
             <span className="map-label map-label-tollway mono" aria-hidden="true">Dallas N Tollway</span>
             <span className="map-label map-label-legacy mono" aria-hidden="true">Legacy Dr</span>
             <span className="map-pin" aria-hidden="true" />
