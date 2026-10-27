@@ -65,7 +65,7 @@ html.alt-lock{overflow:hidden}
 .alt-hero-proof{position:absolute;left:var(--pad);right:var(--pad);bottom:32px;display:flex;flex-wrap:wrap;gap:8px 48px;font-family:"Geist Mono",ui-monospace,monospace;font-size:12px;line-height:16px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 
 /* Hero appear (design-to-motion, website context): 6px rise, 2px blur, reading order, once on load */
-.alt-header{animation:alt-appear 800ms var(--e) 40ms both}
+.alt-nav-bar{animation:alt-appear 800ms var(--e) 40ms both}
 .alt-appear{animation:alt-appear 800ms var(--e) calc(var(--d,0) * 60ms + 80ms) both}
 @keyframes alt-appear{from{opacity:0;transform:translateY(6px);filter:blur(2px)}to{opacity:1;transform:none;filter:none}}
 @keyframes alt-photo{from{opacity:0;filter:blur(14px) saturate(.6)}to{opacity:1;filter:none}}
@@ -209,7 +209,7 @@ html.alt-lock{overflow:hidden}
   .alt-nav-bar{width:calc(100% - 32px);justify-content:space-between;padding-left:16px}
   .alt .alt-nav-links{display:none}
   .alt-menu-toggle{display:block}
-  .alt-menu-panel{position:fixed;inset:0;z-index:1;display:flex;flex-direction:column;padding:96px 16px 32px;background:rgba(0,0,0,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);opacity:0;visibility:hidden;pointer-events:auto;transition:opacity 300ms var(--ease),visibility 0s linear 300ms}
+  .alt-menu-panel{position:fixed;inset:0;z-index:1;display:flex;flex-direction:column;padding:96px 16px 32px;background:rgba(0,0,0,.96);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);opacity:0;visibility:hidden;pointer-events:auto;transition:opacity 300ms var(--ease),visibility 0s linear 300ms}
   .alt-header[data-open] .alt-menu-panel{opacity:1;visibility:visible;transition:opacity 300ms var(--ease)}
   .alt .alt-menu-panel nav{display:flex;flex-direction:column;align-items:stretch;gap:0}
   .alt .alt-menu-panel a{display:block;padding:12px 0;font-size:36px;line-height:40px;font-weight:500;letter-spacing:-.03em;color:var(--muted);opacity:0;transform:translateY(24px);transition:opacity 500ms var(--ease),transform 500ms var(--ease),color 300ms var(--ease)}
@@ -270,7 +270,7 @@ html.alt-lock{overflow:hidden}
 
 /* Reduced motion: movement becomes a plain opacity change; the hero drift never runs. */
 @media (prefers-reduced-motion:reduce){
-  .alt-header,.alt-appear,.alt-hero-media{animation:none}
+  .alt-nav-bar,.alt-appear,.alt-hero-media{animation:none}
   .alt-hero-media img{animation:none;transform:none}
   .alt-js [data-alt-reveal]:not(.is-in){transform:none;filter:none}
   .alt-menu-panel a{transform:none!important}
