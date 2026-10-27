@@ -1,5 +1,4 @@
 import type { CSSProperties } from "react";
-import Link from "next/link";
 import { AltNav } from "@/components/alt/alt-nav";
 import { AltMotion, AltMotionToggle } from "@/components/alt/alt-motion";
 import { Icon } from "@/components/alt/icons";
@@ -242,7 +241,7 @@ export function AltView() {
           <span>Research &amp; development</span>
           <span>Manufacturing / Artificial intelligence</span>
           <span>© {new Date().getFullYear()} 517 Industries</span>
-          <Link href="/">Current site</Link>
+          <a href="https://517industries.com/">Current site</a>
         </div>
       </footer>
 
