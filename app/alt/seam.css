@@ -157,7 +157,7 @@
 .seam-cursor-cross::after { top: 50%; left: -8px; right: -8px; height: 1px; }
 .seam[data-side="r"] .seam-cursor-dot { opacity: 0; transform: scale(0.4); }
 .seam[data-side="r"] .seam-cursor-cross { opacity: 1; }
-.seam[data-cursor="on"]-cursor { display: block; }
+.seam[data-cursor="on"] .seam-cursor { display: block; }
 .seam[data-cursor="on"], .seam[data-cursor="on"] * { cursor: none; }
 .seam[data-cursor="on"] a, .seam[data-cursor="on"] button { cursor: pointer; }
 .seam[data-cursor="on"] .seam-handle { cursor: ew-resize; }
