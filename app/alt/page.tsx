@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
-import { AltView } from "@/components/alt/alt-view";
-import "./alt.css";
+import { SeamView } from "@/components/alt/seam-view";
+import "./seam.css";
 
-// Alternate design preview. Not linked from the live site and kept out of search.
+// Alternate design preview ("The Seam"). Not linked from the live site and kept out of search.
 export const metadata: Metadata = {
-  title: "517 Industries | Curiosity, put to work. (alternate preview)",
-  description: "Independent research and development across manufacturing, artificial intelligence, and the possibilities between.",
+  title: "517 Industries | Curiosity, put to work.",
+  description: "Exploring manufacturing, artificial intelligence, and the possibilities between.",
   robots: { index: false, follow: false, nocache: true, googleBot: { index: false, follow: false } },
   openGraph: {
     title: "517 Industries",
-    description: "Curiosity, put to work. Independent R&D across manufacturing and artificial intelligence.",
+    description: "Curiosity, put to work.",
     type: "website",
-    images: [{ url: "/alt/img/hero-1600.webp", width: 1600, height: 905 }],
+    images: [{ url: "/alt/seam/img/s6.webp", width: 1920, height: 822 }],
   },
 };
 
 export default function AltPreview() {
-  return <AltView />;
+  return <SeamView />;
 }
