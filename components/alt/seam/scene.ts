@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { COMPOSITE_FRAG, HEAT_FRAG, POINT_FRAG, POINT_VERT, POS_FRAG, QUAD_VERT, VEL_FRAG } from "./shaders";
 import { type SeamState, bias } from "./state";
+import { loadVideo, unloadVideo } from "./video";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -138,9 +139,8 @@ export async function createStage(root: HTMLElement, st: SeamState, onLost: () =
     const c = clips[id];
     if (!c || c.loaded) return;
     c.loaded = true;
-    c.el.src = c.el.dataset.src!;
     c.el.preload = "auto";
-    c.el.load();
+    loadVideo(c.el, c.el.dataset.src!);
   };
   const ready = (c?: Clip) => !!c && c.loaded && c.el.readyState >= 2;
   // A slot shows the video once it has a frame, the poster until then.
@@ -523,7 +523,7 @@ export async function createStage(root: HTMLElement, st: SeamState, onLost: () =
       const c = clips[id];
       if (!c.loop) continue;
       const want = ids.includes(id) && !st.paused && running;
-      if (want && c.loaded && c.el.paused) {
+      if (want && c.el.readyState >= 2 && c.el.paused) {
         c.el.play().catch(() => {});
         playing.add(id);
       } else if (!want && !c.el.paused) {
@@ -946,9 +946,7 @@ export async function createStage(root: HTMLElement, st: SeamState, onLost: () =
       handle.removeEventListener("keydown", onKey);
       canvas.removeEventListener("webglcontextlost", onContextLost);
       Object.values(clips).forEach((c) => {
-        c.el.pause();
-        c.el.removeAttribute("src");
-        c.el.load();
+        unloadVideo(c.el);
         c.tex.dispose();
       });
       Object.values(posters).forEach((p) => p.tex.dispose());

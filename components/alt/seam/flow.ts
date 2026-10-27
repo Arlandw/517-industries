@@ -1,4 +1,5 @@
 import type { SeamState } from "./state";
+import { loadVideo, unloadVideo } from "./video";
 
 // Flow layout: mobile, reduced motion and the no-WebGL fallback. Posters per chapter,
 // CSS clip-path wipes in place of the molten dissolve, and one hero loop.
@@ -22,6 +23,7 @@ export function initFlow(root: HTMLElement, st: SeamState) {
 
   // Only the hero loop ever plays in flow, and never under data saver.
   let video: HTMLVideoElement | null = null;
+  let videoUrl = "";
   if (!st.saveData) {
     const host = st.narrow ? root.querySelector<HTMLElement>(".flow-hero") : root.querySelector<HTMLElement>(".seam-poster-l");
     if (host) {
@@ -29,16 +31,23 @@ export function initFlow(root: HTMLElement, st: SeamState) {
       video.muted = true;
       video.loop = true;
       video.playsInline = true;
-      video.preload = st.paused ? "none" : "auto";
       video.setAttribute("aria-hidden", "true");
-      video.src = st.narrow ? "/alt/seam/video/s9-loop.h264.mp4" : "/alt/seam/video/s1-loop.h264.mp4";
+      videoUrl = st.narrow ? "/alt/seam/video/s9-loop.h264.mp4" : "/alt/seam/video/s1-loop.h264.mp4";
       host.appendChild(video);
     }
   }
   const sync = () => {
     if (!video) return;
-    if (st.paused) video.pause();
-    else video.play().catch(() => {});
+    video.autoplay = !st.paused;
+    if (st.paused) {
+      video.pause();
+      return;
+    }
+    if (videoUrl) {
+      loadVideo(video, videoUrl);
+      videoUrl = "";
+    }
+    video.play().catch(() => {});
   };
   sync();
 
@@ -52,7 +61,7 @@ export function initFlow(root: HTMLElement, st: SeamState) {
       window.removeEventListener("scroll", onScroll);
       media.forEach((m) => m.classList.remove("is-wipe", "is-in"));
       closer?.classList.remove("is-end");
-      video?.pause();
+      if (video) unloadVideo(video);
       video?.remove();
     },
   };
